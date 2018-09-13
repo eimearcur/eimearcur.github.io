@@ -31,11 +31,4 @@ function draw() {
     background(0);
   }
 
-
-}unction setup() {
-  createCanvas(windowWidth, windowHeight);
-}
-
-function draw() {
-
 }
