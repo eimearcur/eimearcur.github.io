@@ -17,9 +17,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   y = height/2;
   x = width/2
-  dx = 5
   dy = 5;
-  rectwidth = 50;
   rectheight = 50;
 
 }
