@@ -19,9 +19,7 @@ function setup() {
 
 function draw() {
   background(84, 229, 255);
-  if (mouseIsPressed){
-    background(9, 69, 165);
-  }
+  sky();
   image(plane, mouseX, planeHeight);
 }
 
@@ -44,4 +42,11 @@ function keyPressed(){
     planeHeight += 50;
   }
   wall();
+}
+
+function sky(){
+  //changes the color of the sky when the mouse button is held down
+  if (mouseIsPressed){
+    background(9, 69, 165);
+  }
 }
