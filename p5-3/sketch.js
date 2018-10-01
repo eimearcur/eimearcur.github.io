@@ -24,7 +24,7 @@ function draw() {
 }
 
 function wall(){
-  // function to make the plane not exit the screen
+  // function to make the plane not exit the screen when going up or down
   if (planeHeight > height - plane.height){
     planeHeight -= 50;
   }
