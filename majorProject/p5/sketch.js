@@ -78,11 +78,16 @@ function movePlayerTwo(){
 
    hit = collideRectRect(playerOne.x, playerOne.y, playerOne.size, playerOne.size, playerTwo.x, playerTwo.y, playerTwo.size, playerTwo.size);
 
-   if (hit === true && keyCode === 32){ //space
+   if (hit === true && key === "f"){
      console.log("got it")
-    playerTwo.x += playerTwo.dx * 2;
-    playerTwo.health = playerTwo.health - 10;
+    playerTwo.x += playerTwo.dx * -1;
+    playerTwo.health = playerTwo.health - 1;
 
+   }
+   else if (hit === true && key === "r"){
+     console.log("blocked");
+     playerTwo.x += playerTwo.x *-1; //try to get them to boucne at some point
+     playerOne.health = playerOne.health;
    }
  }
 
@@ -91,10 +96,16 @@ function movePlayerTwo(){
 
     hit2 = collideRectRect(playerTwo.x, playerTwo.y, playerTwo.size, playerTwo.size, playerOne.x, playerOne.y, playerOne.size, playerOne.size);
 
-    if (hit2 === true && keyCode === 70){ //space
+    if (hit2 === true && key === " "){
       console.log("got it")
-     playerOne.x += playerOne.dx * 2;
+     playerOne.x += playerOne.x * -1;
      playerOne.health = playerOne.health - 1;
 
+    }
+
+    else if (hit2 === true && key === "m"){
+      console.log("blocked");
+      playerOne.x += playerOne.dx * -1;
+      playerTwo.health = playerTwo.health;
     }
   }
