@@ -13,6 +13,7 @@ let playerOne, playerTwo;
 let hit = false;
 
 
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // playerOne = new PlayerOne();
@@ -34,6 +35,7 @@ function setup() {
     color: color(0, 0, 255),
     health: 100,
   };
+
 }
 
 function draw() {
@@ -51,6 +53,9 @@ function draw() {
   text(playerTwo.health, 100, 100);
   playerTwoHit();
   text(playerOne.health, 500, 100);
+
+  image(danielle, 250, 40, 500, 154);
+
 
 
 }
