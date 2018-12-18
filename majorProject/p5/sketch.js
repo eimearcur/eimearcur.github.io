@@ -11,9 +11,16 @@
 
 let playerOne, playerTwo;
 let hit = false;
+let danielle;
+let newDanielle;
+let danielleSpreadSheet;
+
+
+function preload(){
 
 
 
+}
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // playerOne = new PlayerOne();
@@ -43,21 +50,18 @@ function draw() {
 //   playerOne.update();
   background(255);
   noStroke();
-  fill(playerOne.color);
-  rect(playerOne.x, playerOne.y, playerOne.size, playerOne.size);
-  movePlayerTwo();
-  movePlayerOne();
-  fill(playerTwo.color);
-  rect(playerTwo.x, playerTwo.y, playerTwo.size, playerTwo.size);
-  playerOneHit();
-  text(playerTwo.health, 100, 100);
-  playerTwoHit();
-  text(playerOne.health, 500, 100);
-
-  image(danielle, 250, 40, 500, 154);
-
-
-
+  //fill(playerOne.color);
+  //rect(playerOne.x, playerOne.y, playerOne.size, playerOne.size);
+  //movePlayerTwo();
+  //movePlayerOne();
+  //fill(playerTwo.color);
+  //rect(playerTwo.x, playerTwo.y, playerTwo.size, playerTwo.size);
+  //playerOneHit();
+  //text(playerTwo.health, 100, 100);
+  //playerTwoHit();
+  //text(playerOne.health, 500, 100);
+  drawSprites();
+  drawDanielle();
 }
 
 function movePlayerTwo(){
@@ -113,4 +117,12 @@ function movePlayerTwo(){
       playerOne.x += playerOne.dx * -1;
       playerTwo.health = playerTwo.health;
     }
+  }
+
+  function drawDanielle(){
+    players = new Group();
+    newDanielle = createSprite(width/2, height/2);
+    newDanielle.addImage(loadImage("assets/playerOne.gif"));
+    newDanielle.scale = 10;
+    newDanielle.mass = newDanielle.scale;
   }
