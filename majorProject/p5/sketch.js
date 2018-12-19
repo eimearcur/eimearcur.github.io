@@ -17,7 +17,8 @@ let danielleSpreadSheet;
 
 
 function preload(){
-
+  //newDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png");
+  //newDanielle.playing = false;
 
 
 }
@@ -42,6 +43,9 @@ function setup() {
     color: color(0, 0, 255),
     health: 100,
   };
+  newDanielle = createSprite(width/2, height/2, 50, 100);
+  newDanielle.addAnimation("fighting","assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png")
+  newDanielle.looping = false;
 
 }
 
@@ -61,17 +65,26 @@ function draw() {
   //playerTwoHit();
   //text(playerOne.health, 500, 100);
   drawSprites();
-  drawDanielle();
+
+  //drawDanielle();
+
+
+  //animation(newDanielle, width/2, height/2);
+
 }
 
-function movePlayerTwo(){
-  if(keyIsDown(39)){
-    playerTwo.x += playerTwo.dx;
-  }//right arrow
-  if(keyIsDown(37)){ //left key
-    playerTwo.x -= playerTwo.dx;
- }
+function mousePressed(){
+  newDanielle.nextFrame();
 }
+
+// function movePlayerTwo(){
+//   if(keyIsDown(39)){
+//     newDanielle += 5;
+//   }//right arrow
+//  //  if(keyIsDown(37)){ //left key
+//  //    playerTwo.x -= playerTwo.dx;
+//  // }
+// }
 
 
  function movePlayerOne(){
@@ -122,7 +135,11 @@ function movePlayerTwo(){
   function drawDanielle(){
     players = new Group();
     newDanielle = createSprite(width/2, height/2);
-    newDanielle.addImage(loadImage("assets/playerOne.gif"));
-    newDanielle.scale = 10;
+    //newDanielle.addAnimation("floating", "assets/danielleOne.png", "assets/danielleTwo.png");
+    newDanielle.scale = 1;
     newDanielle.mass = newDanielle.scale;
-  }
+
+    if (key === "m"){
+      newDanielle.changeAnimation("floating");
+    }
+}
