@@ -13,12 +13,22 @@ let playerOne, playerTwo;
 let hit = false;
 let danielle;
 let newDanielle;
-let danielleSpreadSheet;
+let danielleSpriteSheet;
+let danielleFrames;
+let danielleFight;
+let danielleStand;
 
 
 function preload(){
   //newDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png");
   //newDanielle.playing = false;
+
+  danielleFrames = loadJSON("assets/playerOne.json");
+  danielleSpriteSheet = loadSpriteSheet("assets/playerOne.png", danielleFrames)
+
+  danielleFight = loadAnimation(danielleSpriteSheet);
+
+  danielleStand = loadAnimation(new spriteSheet("assets/playerOne.png", [{}])) //json 
 
 
 }
@@ -43,9 +53,9 @@ function setup() {
     color: color(0, 0, 255),
     health: 100,
   };
-  newDanielle = createSprite(width/2, height/2, 50, 100);
-  newDanielle.addAnimation("fighting","assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png")
-  newDanielle.looping = false;
+  //newDanielle = createSprite(width/2, height/2, 50, 100);
+  //newDanielle.addAnimation("fighting","assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png")
+
 
 }
 
@@ -64,7 +74,7 @@ function draw() {
   //text(playerTwo.health, 100, 100);
   //playerTwoHit();
   //text(playerOne.health, 500, 100);
-  drawSprites();
+  //drawSprites();
 
   //drawDanielle();
 
