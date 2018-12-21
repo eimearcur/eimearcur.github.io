@@ -19,6 +19,8 @@ let danielleFight;
 let danielleStand;
 
 
+
+
 function preload(){
   //newDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png");
   //newDanielle.playing = false;
@@ -28,7 +30,8 @@ function preload(){
 
   danielleFight = loadAnimation(danielleSpriteSheet);
 
-  danielleStand = loadAnimation(new spriteSheet("assets/playerOne.png", [{}])) //json 
+  danielleStand = new SpriteSheet("assets/playerOne.png", [{"frames": "playerOne0.png", "frame": {"x": 0, "y": 0, "w": 800, "h":800}}]); //json
+  danielleStand = loadAnimation(danielleStand);
 
 
 }
@@ -53,8 +56,9 @@ function setup() {
     color: color(0, 0, 255),
     health: 100,
   };
-  //newDanielle = createSprite(width/2, height/2, 50, 100);
-  //newDanielle.addAnimation("fighting","assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png")
+  newDanielle = createSprite(width/2, height/2, 50, 100);
+  newDanielle.addAnimation("fighting", danielleFight);
+  newDanielle.addAnimation("standing", danielleStand);
 
 
 }
@@ -74,7 +78,12 @@ function draw() {
   //text(playerTwo.health, 100, 100);
   //playerTwoHit();
   //text(playerOne.health, 500, 100);
-  //drawSprites();
+
+  if (key === "d"){
+    newDanielle.changeAnimation("fighting")
+  }
+
+  drawSprites();
 
   //drawDanielle();
 
@@ -142,14 +151,14 @@ function mousePressed(){
     }
   }
 
-  function drawDanielle(){
-    players = new Group();
-    newDanielle = createSprite(width/2, height/2);
-    //newDanielle.addAnimation("floating", "assets/danielleOne.png", "assets/danielleTwo.png");
-    newDanielle.scale = 1;
-    newDanielle.mass = newDanielle.scale;
-
-    if (key === "m"){
-      newDanielle.changeAnimation("floating");
-    }
-}
+//   function drawDanielle(){
+//     players = new Group();
+//     newDanielle = createSprite(width/2, height/2);
+//     //newDanielle.addAnimation("floating", "assets/danielleOne.png", "assets/danielleTwo.png");
+//     newDanielle.scale = 1;
+//     newDanielle.mass = newDanielle.scale;
+//
+//     if (key === "m"){
+//       newDanielle.changeAnimation("floating");
+//     }
+// }
