@@ -17,26 +17,32 @@ let danielleSpriteSheet;
 let danielleFrames;
 let danielleFight;
 let danielleStand;
-
+let newSecond;
+let backgroundImage;
 
 
 
 function preload(){
-  //newDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png","assets/danielleThree.png", "assets/danielleFour.png", "assets/danielleThree.png", "assets/danielleTwo.png");
-  //newDanielle.playing = false;
+  backgroundImage = loadImage("assets/backgroundGameImage.png");
+  newDanielle = loadAnimation("assets/danielleOne.png","assets/danielleTwo.png");
+  newDanielle.playing = false;
+  newSecond = loadAnimation("assets/sprite_0.png", "assets/sprite_1.png");
+  newSecond.playing = false;
 
-  danielleFrames = loadJSON("assets/playerOne.json");
-  danielleSpriteSheet = loadSpriteSheet("assets/playerOne.png", danielleFrames)
+  //danielleFrames = loadJSON("assets/playerOne.json");
+  //danielleSpriteSheet = loadSpriteSheet("assets/playerOne.png", danielleFrames)
 
-  danielleFight = loadAnimation(danielleSpriteSheet);
+  //danielleFight = loadAnimation(danielleSpriteSheet);
 
-  danielleStand = new SpriteSheet("assets/playerOne.png", [{"frames": "playerOne0.png", "frame": {"x": 0, "y": 0, "w": 800, "h":800}}]); //json
-  danielleStand = loadAnimation(danielleStand);
+  //danielleStand = new SpriteSheet("assets/playerOne.png", [{"frames": "playerOne0.png", "frame": {"x": 0, "y": 0, "w": 800, "h":800}}]); //json
+  //danielleStand = loadAnimation(danielleStand);
 
 
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+
   // playerOne = new PlayerOne();
   playerOne = {
     x: 0,
@@ -56,9 +62,9 @@ function setup() {
     color: color(0, 0, 255),
     health: 100,
   };
-  newDanielle = createSprite(width/2, height/2, 50, 100);
-  newDanielle.addAnimation("fighting", danielleFight);
-  newDanielle.addAnimation("standing", danielleStand);
+  //newDanielle = createSprite(width/2, height/2, 50, 100);
+  //newDanielle.addAnimation("fighting", danielleFight);
+  //newDanielle.addAnimation("standing", danielleStand);
 
 
 }
@@ -66,44 +72,59 @@ function setup() {
 function draw() {
 //   playerOne.display();
 //   playerOne.update();
-  background(255);
+  background(backgroundImage);
   noStroke();
   //fill(playerOne.color);
   //rect(playerOne.x, playerOne.y, playerOne.size, playerOne.size);
-  //movePlayerTwo();
-  //movePlayerOne();
+  movePlayerTwo();
+  movePlayerOne();
   //fill(playerTwo.color);
   //rect(playerTwo.x, playerTwo.y, playerTwo.size, playerTwo.size);
   //playerOneHit();
   //text(playerTwo.health, 100, 100);
   //playerTwoHit();
   //text(playerOne.health, 500, 100);
+  nextFrame();
+  nextFrame2();
 
-  if (key === "d"){
-    newDanielle.changeAnimation("fighting")
-  }
+  // if (key === "d"){
+  //   newDanielle.changeAnimation("fighting")
+  // }
 
   drawSprites();
 
   //drawDanielle();
 
 
-  //animation(newDanielle, width/2, height/2);
+  animation(newDanielle, playerOne.x, playerOne.y);
+  animation(newSecond, playerTwo.x, playerTwo.y);
 
 }
 
-function mousePressed(){
-  newDanielle.nextFrame();
-}
-
-// function movePlayerTwo(){
-//   if(keyIsDown(39)){
-//     newDanielle += 5;
-//   }//right arrow
-//  //  if(keyIsDown(37)){ //left key
-//  //    playerTwo.x -= playerTwo.dx;
-//  // }
+// function mousePressed(){
+//   newDanielle.nextFrame();
 // }
+
+function nextFrame(){
+  if (key === "m"){
+    newDanielle.nextFrame();
+  }
+}
+
+function nextFrame2(){
+  if (key === "l"){
+    newSecond.nextFrame();
+  }
+}
+
+function movePlayerTwo(){
+  if(keyIsDown(39)){
+    newDanielle += 5;
+  }//right arrow
+  if(keyIsDown(37)){ //left key
+    playerTwo.x -= playerTwo.dx;
+ }
+}
 
 
  function movePlayerOne(){
