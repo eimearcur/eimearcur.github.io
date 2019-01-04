@@ -19,15 +19,26 @@ let danielleFight;
 let danielleStand;
 let newSecond;
 let backgroundImage;
+let newDanielleHealth = 100;
+let newSecondHealth = 100;
 
 
 
 function preload(){
+
   backgroundImage = loadImage("assets/backgroundGameImage.png");
-  newDanielle = loadAnimation("assets/danielleOne.png","assets/danielleTwo.png");
-  newDanielle.playing = false;
-  newSecond = loadAnimation("assets/sprite_0.png", "assets/sprite_1.png");
-  newSecond.playing = false;
+  newDanielle = createSprite(400, 500);
+
+  newDanielle.addAnimation("test","assets/danielleOne.png") //
+  newDanielle.addAnimation("fight", "assets/danielleTwo.png");
+  //newDanielle.playing = false;
+
+  newDanielle.setCollider("rectangle", 0, 0, 25, 25);
+  newSecond = createSprite(800, 500);
+  newSecond.addAnimation("test", "assets/sprite_0.png") //,
+  newSecond.addAnimation("fight", "assets/sprite_1.png");
+  //newSecond.playing = false;
+  newSecond.setCollider("rectangle", 0, 0, 25, 25);
 
   //danielleFrames = loadJSON("assets/playerOne.json");
   //danielleSpriteSheet = loadSpriteSheet("assets/playerOne.png", danielleFrames)
@@ -41,7 +52,7 @@ function preload(){
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
+  objects = new Group();
 
   // playerOne = new PlayerOne();
   playerOne = {
@@ -73,7 +84,10 @@ function draw() {
 //   playerOne.display();
 //   playerOne.update();
   background(backgroundImage);
-  noStroke();
+
+  //newDanielle.collide(newSecond);
+
+  //noStroke();
   //fill(playerOne.color);
   //rect(playerOne.x, playerOne.y, playerOne.size, playerOne.size);
   movePlayerTwo();
@@ -81,23 +95,88 @@ function draw() {
   //fill(playerTwo.color);
   //rect(playerTwo.x, playerTwo.y, playerTwo.size, playerTwo.size);
   //playerOneHit();
-  //text(playerTwo.health, 100, 100);
+  textSize(100);
+  fill(255)
+  text(newDanielleHealth, 100, 100);
   //playerTwoHit();
-  //text(playerOne.health, 500, 100);
-  nextFrame();
-  nextFrame2();
+  text(newSecondHealth, 500, 100);
+  //nextFrame();
+  //nextFrame2();
 
   // if (key === "d"){
   //   newDanielle.changeAnimation("fighting")
   // }
 
+//danielle fight
+  if (key === "m"){
+    newDanielle.changeAnimation("fight");
+    if (newDanielle.collide(newSecond)){
+      newSecondHealth -= 1;
+
+    }
+  }
+  else{
+    newDanielle.changeAnimation("test");
+  }
+
+  //second fight
+
+  if (key === "l"){
+    newSecond.changeAnimation("fight");
+    if (newSecond.collide(newDanielle)){
+      newDanielleHealth -= 1;
+    }
+  }
+  else{
+    newSecond.changeAnimation("test");
+  }
+
+  //second block
+  if (key === "k"){
+    newSecond.changeAnimation("fight");
+    if(newDanielle.collide(newSecond)){
+      newDanielle.position.x -= 20;
+    }
+  }
+  else{
+    newSecond.changeAnimation("test");
+  }
+
+  //danielle block
+  if (key === "n"){
+    newDanielle.changeAnimation("fight");
+    if(newSecond.collide(newDanielle)){
+      newSecond.position.x += 20;
+    }
+  }
+  else{
+    newDanielle.changeAnimation("test");
+  }
+
+
+
+
+
+  // if (newDanielle.collide(newSecond) && key === "m"){
+  //   newDanielle.changeAnimation("fight");
+  //   console.log("killed");
+  // }
+  // else{
+  //   newDanielle.changeAnimation("test");
+  // }
+
   drawSprites();
+  objects.add(newDanielle);
+  objects.add(newSecond);
+//  newDanielle.bounce(newSecond);
+  newSecond.bounce(newDanielle);
+  newDanielle.bounce(newSecond);
 
   //drawDanielle();
 
 
-  animation(newDanielle, playerOne.x, playerOne.y);
-  animation(newSecond, playerTwo.x, playerTwo.y);
+  //animation(newDanielle, playerOne.x, playerOne.y);
+  //animation(newSecond, playerTwo.x, playerTwo.y);
 
 }
 
@@ -119,20 +198,20 @@ function nextFrame2(){
 
 function movePlayerTwo(){
   if(keyIsDown(39)){
-    newDanielle += 5;
+    newSecond.position.x += 5;
   }//right arrow
   if(keyIsDown(37)){ //left key
-    playerTwo.x -= playerTwo.dx;
+    newSecond.position.x -= 5;
  }
 }
 
 
  function movePlayerOne(){
    if(keyIsDown(68)){
-     playerOne.x += playerOne.dx;
+     newDanielle.position.x += 5;
    }//d
    if(keyIsDown(65)){ //a
-     playerOne.x -= playerOne.dx;
+     newDanielle.position.x -= 5;
    }
  }
 
