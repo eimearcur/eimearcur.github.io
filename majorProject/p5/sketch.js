@@ -14,8 +14,9 @@ let newSecond;
 let backgroundImage;
 let newDanielleHealth = 100;
 let newSecondHealth = 100;
-
-
+let state = 0;
+let hit = false;
+let playButton;
 
 function preload(){
 
@@ -30,6 +31,9 @@ function preload(){
   newSecond.addAnimation("test", "assets/sprite_0.png");
   newSecond.addAnimation("fight", "assets/sprite_1.png");
   newSecond.setCollider("rectangle", 0, 0, 25, 25);
+
+
+
 }
 
 function setup() {
@@ -38,24 +42,56 @@ function setup() {
 }
 
 function draw() {
-  background(backgroundImage);
+  if (state === 1) {
+    background(backgroundImage);
 
-  movePlayerTwo();
-  movePlayerOne();
-  fight();
-  block();
+    movePlayerTwo();
+    movePlayerOne();
+    fight();
+    block();
 
-  textSize(50);
-  fill(255, 0, 0);
-  text(newDanielleHealth, 100, 100);
-  text(newSecondHealth, 1800, 100);
+    textSize(50);
+    fill(255, 0, 0);
+    text(newDanielleHealth, 100, 100);
+    text(newSecondHealth, 1800, 100);
 
-  drawSprites();
-  objects.add(newDanielle);
-  objects.add(newSecond);
-  newSecond.bounce(newDanielle);
-  newDanielle.bounce(newSecond);
+    drawSprite(newDanielle);
+    drawSprite(newSecond);
+    objects.add(newDanielle);
+    objects.add(newSecond);
+    newSecond.bounce(newDanielle);
+    newDanielle.bounce(newSecond);
+  }
+  else {
+    background(0);
+    drawSprite(playButton);
+    menu();
+  }
 }
+
+function menu(){
+  playButton = createSprite(width/2, height/2);
+  playButton.addAnimation("not pressed", "assets/play_0.png");
+  playButton.addAnimation("pressed", "assets/play_1.png");
+  playButton.setCollider("rectangle", 0, 0, 25, 25);
+
+  // if mouse overlap/collide
+  //change addAnimation
+  // if mouse pressed
+  //state = 1;
+
+  if (playButton.mouseIsOver){
+    playButton.changeAnimation("pressed");
+    if (mouseIsPressed){
+      state = 1;
+    }
+  }
+
+
+  }
+
+
+
 
 
 function fight(){
