@@ -9,6 +9,10 @@
 //sprites p5.play
 // create backgrounds
 
+//change animation so something different happens when block happens, rn theyre both for fight
+
+// change fight functio
+
 let newDanielle;
 let newSecond;
 let backgroundImage;
@@ -22,14 +26,18 @@ function preload(){
 
   backgroundImage = loadImage("assets/backgroundGameImage.png");
 
+  playButton = loadImage("assets/play_0.png");
+
   newDanielle = createSprite(400, 800);
-  newDanielle.addAnimation("test","assets/danielleOne.png");
-  newDanielle.addAnimation("fight", "assets/danielleTwo.png");
+  newDanielle.addAnimation("test","assets/danielleOne.png"); //stand
+  newDanielle.addAnimation("fight", "assets/danielleTwo.png"); //fight
+  //newDanielle.addAnimation("block", "assets/danielle_1.png");
   newDanielle.setCollider("rectangle", 0, 0, 25, 25);
 
   newSecond = createSprite(1600, 800);
   newSecond.addAnimation("test", "assets/sprite_0.png");
   newSecond.addAnimation("fight", "assets/sprite_1.png");
+//  newSecond.addAnimation("block", "assets/second_0.png");
   newSecond.setCollider("rectangle", 0, 0, 25, 25);
 
 
@@ -48,7 +56,7 @@ function draw() {
     movePlayerTwo();
     movePlayerOne();
     fight();
-    block();
+    //block();
 
     textSize(50);
     fill(255, 0, 0);
@@ -64,82 +72,102 @@ function draw() {
   }
   else {
     background(0);
-    drawSprite(playButton);
     menu();
   }
 }
 
 function menu(){
-  playButton = createSprite(width/2, height/2);
-  playButton.addAnimation("not pressed", "assets/play_0.png");
-  playButton.addAnimation("pressed", "assets/play_1.png");
-  playButton.setCollider("rectangle", 0, 0, 25, 25);
+  //title
 
-  // if mouse overlap/collide
-  //change addAnimation
-  // if mouse pressed
-  //state = 1;
+  //chose character
 
-  if (playButton.mouseIsOver){
-    playButton.changeAnimation("pressed");
-    if (mouseIsPressed){
-      state = 1;
-    }
-  }
+  //chose background
 
+  // play button
+  image(playButton, 500, 200);
+  hit = collidePointRect(mouseX, mouseY, 500, 200, playButton.width, playButton.height);
 
-  }
-
-
-
-
-
-function fight(){
-  //danielle fight
-  if (key === "m"){
-    newDanielle.changeAnimation("fight");
-    if (newDanielle.collide(newSecond)){
-      newSecondHealth -= 1;
-    }
-  }
-
-  else{
-    newDanielle.changeAnimation("test");
-  }
-  //second fight
-  if (key === "l"){
-    newSecond.changeAnimation("fight");
-    if (newSecond.collide(newDanielle)){
-      newDanielleHealth -= 1;
-    }
-  }
-  else{
-    newSecond.changeAnimation("test");
+  if (hit){
+    if(mouseIsPressed){
+    state = 1;
   }
 }
+}
 
-function block(){
-  //second block
-  if (key === "k"){
-    newSecond.changeAnimation("fight");
-    if(newDanielle.collide(newSecond)){
-      newDanielle.position.x -= 20;
+function fight(){
+  if (newDanielle.collide(newSecond)){
+    if (key === "n"){
+      newDanielle.changeAnimation("fight");
+      newSecondHealth -= 1;
+
     }
-  }
-  else{
-    newSecond.changeAnimation("test");
-  }
-  //danielle block
-  if (key === "n"){
-    newDanielle.changeAnimation("fight");
-    if(newSecond.collide(newDanielle)){
+    else if (key === "m"){
+      newDanielle.changeAnimation("fight");
       newSecond.position.x += 20;
     }
   }
-  else{
-    newDanielle.changeAnimation("test");
-  }
 }
+
+
+//
+// function fight(){
+//   //danielle fight
+//   if (key === "m"){
+//     newDanielle.changeAnimation("fight");
+//     if (newDanielle.collide(newSecond)){
+//       newSecondHealth -= 1;
+//     }
+//
+//   else if (key === "n"){
+//     newDanielle.changeAnimation("fight");
+//     if (newDanielle.collide(newSecond)){
+//       newDanielle.position.x -= 20;
+//
+//   }
+// }
+// }
+//
+//   else{
+//     newDanielle.changeAnimation("test");
+//   }
+//   //second fight
+//   if (key === "l"){
+//     newSecond.changeAnimation("fight");
+//     if (newSecond.collide(newDanielle)){
+//       newDanielleHealth -= 1;
+//     }
+//   }
+//   else{
+//     newSecond.changeAnimation("test");
+//   }
+//
+//   if (newSecondHealth <= 0){
+//     background(0);
+//   }
+// }
+
+// function block(){
+//   //second block
+//   if (key === "k"){
+//     newSecond.changeAnimation("fight");
+//     if(newDanielle.collide(newSecond)){
+//       newDanielle.position.x -= 20;
+//     }
+//   }
+//   else{
+//     newSecond.changeAnimation("test");
+//   }
+//   //danielle block
+//   if (key === "n"){
+//     newDanielle.changeAnimation("fight");
+//     if(newSecond.collide(newDanielle)){
+//       newSecond.position.x += 20;
+//     }
+//   }
+//   else{
+//     newDanielle.changeAnimation("test");
+//   }
+// }
 
 function movePlayerTwo(){
   if(keyIsDown(39)){
