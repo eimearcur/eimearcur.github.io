@@ -1,3 +1,4 @@
+
 // Major Project
 // Eimear
 // 2018
@@ -9,9 +10,12 @@
 //sprites p5.play
 // create backgrounds
 
-//change animation so something different happens when block happens, rn theyre both for fight
+//download at school
+// https://www.youtube.com/watch?v=WJRoRt155mA
 
-// change fight functio
+//https://www.youtube.com/watch?v=h5zbCBkCEiE     //must crop into multiple sound effects
+
+
 
 let newDanielle;
 let newSecond;
@@ -25,6 +29,12 @@ let playButton;
 function preload(){
 
   backgroundImage = loadImage("assets/backgroundGameImage.png");
+
+  font = loadFont("assets/ARCADECLASSIC.TTF");
+
+  //menu background
+
+  menuBackground = loadImage("assets/menubackground.jpg");
 
   playButton = loadImage("assets/play_0.png");
 
@@ -40,7 +50,8 @@ function preload(){
 //  newSecond.addAnimation("block", "assets/second_0.png");
   newSecond.setCollider("rectangle", 0, 0, 25, 25);
 
-
+  menuDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png");
+  menuSecond = loadAnimation("assets/sprite_0.png", "assets/sprite_1.png");
 
 }
 
@@ -55,11 +66,12 @@ function draw() {
 
     movePlayerTwo();
     movePlayerOne();
-    fight();
-    //block();
+    danielleFightBlock();
+    secondFightBlock();
 
     textSize(50);
     fill(255, 0, 0);
+    textFont(font);
     text(newDanielleHealth, 100, 100);
     text(newSecondHealth, 1800, 100);
 
@@ -71,13 +83,27 @@ function draw() {
     newDanielle.bounce(newSecond);
   }
   else {
-    background(0);
+    background(menuBackground);
     menu();
   }
 }
 
 function menu(){
   //title
+  textSize(200);
+  textFont(font);
+  fill(0, 0, 255);
+  text("SUPER  FIGHTER", 300, 300);
+  textSize(50);
+  text("By Eimear Currie", width/2, 100);
+
+  //background song
+
+  // image
+
+    animation(menuDanielle, 200, 800);
+    animation(menuSecond, 1600, 800);
+
 
   //chose character
 
@@ -87,87 +113,53 @@ function menu(){
   image(playButton, 500, 200);
   hit = collidePointRect(mouseX, mouseY, 500, 200, playButton.width, playButton.height);
 
-  if (hit){
-    if(mouseIsPressed){
+  if (hit && mouseIsPressed){
+
     state = 1;
-  }
+
 }
 }
 
-function fight(){
-  if (newDanielle.collide(newSecond)){
+function danielleFightBlock(){
+
     if (key === "n"){
       newDanielle.changeAnimation("fight");
-      newSecondHealth -= 1;
-
+      if (newDanielle.collide(newSecond)){
+        newSecondHealth -= 1;
+}
     }
     else if (key === "m"){
+
       newDanielle.changeAnimation("fight");
+      if(newDanielle.collide(newSecond)){
       newSecond.position.x += 20;
     }
   }
-}
+    else{
+      newDanielle.changeAnimation("test");
+    }
+  }
 
+  function secondFightBlock(){
 
-//
-// function fight(){
-//   //danielle fight
-//   if (key === "m"){
-//     newDanielle.changeAnimation("fight");
-//     if (newDanielle.collide(newSecond)){
-//       newSecondHealth -= 1;
-//     }
-//
-//   else if (key === "n"){
-//     newDanielle.changeAnimation("fight");
-//     if (newDanielle.collide(newSecond)){
-//       newDanielle.position.x -= 20;
-//
-//   }
-// }
-// }
-//
-//   else{
-//     newDanielle.changeAnimation("test");
-//   }
-//   //second fight
-//   if (key === "l"){
-//     newSecond.changeAnimation("fight");
-//     if (newSecond.collide(newDanielle)){
-//       newDanielleHealth -= 1;
-//     }
-//   }
-//   else{
-//     newSecond.changeAnimation("test");
-//   }
-//
-//   if (newSecondHealth <= 0){
-//     background(0);
-//   }
-// }
+      if (key === "k"){
+        newSecond.changeAnimation("fight");
+        if (newSecond.collide(newDanielle)){
+          newDanielleHealth -= 1;
+  }
+      }
+      else if (key === "l"){
 
-// function block(){
-//   //second block
-//   if (key === "k"){
-//     newSecond.changeAnimation("fight");
-//     if(newDanielle.collide(newSecond)){
-//       newDanielle.position.x -= 20;
-//     }
-//   }
-//   else{
-//     newSecond.changeAnimation("test");
-//   }
-//   //danielle block
-//   if (key === "n"){
-//     newDanielle.changeAnimation("fight");
-//     if(newSecond.collide(newDanielle)){
-//       newSecond.position.x += 20;
-//     }
-//   }
-//   else{
-//     newDanielle.changeAnimation("test");
-//   }
-// }
+        newSecond.changeAnimation("fight");
+        if(newSecond.collide(newDanielle)){
+        newDanielle.position.x += 20;
+      }
+    }
+      else{
+        newSecond.changeAnimation("test");
+      }
+    }
+
 
 function movePlayerTwo(){
   if(keyIsDown(39)){
