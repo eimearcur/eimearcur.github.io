@@ -25,6 +25,8 @@ let newSecondHealth = 100;
 let state = 0;
 let hit = false;
 let playButton;
+let danielle_dy = 5;
+let second_dy = 5;
 
 function preload(){
 
@@ -58,6 +60,8 @@ function preload(){
 function setup() {
   createCanvas(2000, 986);
   objects = new Group();
+
+
 }
 
 function draw() {
@@ -68,6 +72,8 @@ function draw() {
     movePlayerOne();
     danielleFightBlock();
     secondFightBlock();
+    danielleJump();
+    secondJump();
 
     textSize(50);
     fill(255, 0, 0);
@@ -122,13 +128,13 @@ function menu(){
 
 function danielleFightBlock(){
 
-    if (key === "n"){
+    if (key === "e"){
       newDanielle.changeAnimation("fight");
       if (newDanielle.collide(newSecond)){
         newSecondHealth -= 1;
 }
     }
-    else if (key === "m"){
+    else if (key === "r"){
 
       newDanielle.changeAnimation("fight");
       if(newDanielle.collide(newSecond)){
@@ -142,17 +148,17 @@ function danielleFightBlock(){
 
   function secondFightBlock(){
 
-      if (key === "k"){
+      if (key === "m"){
         newSecond.changeAnimation("fight");
         if (newSecond.collide(newDanielle)){
           newDanielleHealth -= 1;
   }
       }
-      else if (key === "l"){
+      else if (key === "n"){
 
         newSecond.changeAnimation("fight");
         if(newSecond.collide(newDanielle)){
-        newDanielle.position.x += 20;
+        newDanielle.position.x -= 20;
       }
     }
       else{
@@ -177,4 +183,35 @@ function movePlayerOne(){
   if(keyIsDown(65)){ //a
     newDanielle.position.x -= 5;
   }
+}
+
+// these 3 functions deal with jumping
+function danielleJump(){
+  newDanielle.position.y += danielle_dy;
+  danielle_dy += 0.15;
+  if (newDanielle.position.y >= 800){
+    danielle_dy = 0;
+  }
+}
+
+function secondJump(){
+  newSecond.position.y += second_dy;
+  second_dy += 0.15;
+  if (newSecond.position.y >= 800){
+    second_dy = 0;
+  }
+}
+
+
+function keyPressed(){
+  if (newDanielle.position.y >=800 ){
+    if (keyCode === 32){
+        danielle_dy -=9;
+    }
+  }
+  if (newSecond.position.y >=800 ){
+    if (keyCode === UP_ARROW){
+        second_dy -=9;
+}
+}
 }
