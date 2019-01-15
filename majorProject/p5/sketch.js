@@ -32,6 +32,10 @@ function preload(){
 
   backgroundImage = loadImage("assets/backgroundGameImage.png");
 
+  backgroundImageTwo = loadImage("assets/backgroundTwo.png");
+
+  song1 = loadSound("assets/playingBackgroundSong.mp3");
+
   font = loadFont("assets/ARCADECLASSIC.TTF");
 
   //menu background
@@ -68,6 +72,9 @@ function draw() {
   if (state === 1) {
     background(backgroundImage);
 
+    song1.loop();
+
+
     movePlayerTwo();
     movePlayerOne();
     danielleFightBlock();
@@ -88,9 +95,36 @@ function draw() {
     newSecond.bounce(newDanielle);
     newDanielle.bounce(newSecond);
   }
-  else {
+  else if (state === 3){
+    background(backgroundImageTwo);
+
+    movePlayerTwo();
+    movePlayerOne();
+    danielleFightBlock();
+    secondFightBlock();
+    danielleJump();
+    secondJump();
+
+    textSize(50);
+    fill(255, 0, 0);
+    textFont(font);
+    text(newDanielleHealth, 100, 100);
+    text(newSecondHealth, 1800, 100);
+
+    drawSprite(newDanielle);
+    drawSprite(newSecond);
+    objects.add(newDanielle);
+    objects.add(newSecond);
+    newSecond.bounce(newDanielle);
+    newDanielle.bounce(newSecond);
+
+  }
+  else if (state === 0) {
     background(menuBackground);
     menu();
+  }
+  else if (state === 2){
+    decision();
   }
 }
 
@@ -116,14 +150,45 @@ function menu(){
   //chose background
 
   // play button
-  image(playButton, 500, 200);
-  hit = collidePointRect(mouseX, mouseY, 500, 200, playButton.width, playButton.height);
+  image(playButton, 500, 100);
+  hit = collidePointRect(mouseX, mouseY, 500, 100, playButton.width, playButton.height);
 
   if (hit && mouseIsPressed){
 
-    state = 1;
+    state = 2;
 
 }
+}
+
+function decision(){
+  background(menuBackground);
+  textFont(font);
+  textSize(150);
+  fill(0, 0, 255);
+  text("CHOOSE  YOUR  LOCATION", 200, 300);
+
+  image(backgroundImage, 100, 600);
+  image(backgroundImageTwo, 1000, 600, backgroundImageTwo.width/3, backgroundImageTwo.height/3);
+
+
+// click on one
+
+choiceOne = collidePointRect(mouseX, mouseY, 100, 600, backgroundImage.width, backgroundImage.height);
+
+if (choiceOne && mouseIsPressed){
+  state = 1;
+
+}
+
+choiceTwo = collidePointRect(mouseX, mouseY, 1000, 600, backgroundImageTwo.width, backgroundImageTwo.height);
+
+if (choiceTwo && mouseIsPressed){
+  state = 3;
+
+}
+
+
+
 }
 
 function danielleFightBlock(){
