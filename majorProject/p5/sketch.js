@@ -1,6 +1,6 @@
 
 // Major Project
-// Eimear
+// Eimear Currie
 // 2018
 //
 // Extra for Experts:
@@ -19,7 +19,7 @@
 
 let newDanielle;
 let newSecond;
-let backgroundImage;
+let backgroundImage, backgroundImageTwo, font, menuBackground, song1;
 let newDanielleHealth = 100;
 let newSecondHealth = 100;
 let state = 0;
@@ -53,7 +53,7 @@ function preload(){
   newSecond = createSprite(1600, 800);
   newSecond.addAnimation("test", "assets/sprite_0.png");
   newSecond.addAnimation("fight", "assets/sprite_1.png");
-//  newSecond.addAnimation("block", "assets/second_0.png");
+  //  newSecond.addAnimation("block", "assets/second_0.png");
   newSecond.setCollider("rectangle", 0, 0, 25, 25);
 
   menuDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png");
@@ -72,7 +72,7 @@ function draw() {
   if (state === 1) {
     background(backgroundImage);
 
-    song1.loop();
+    //song1.loop();
 
 
     movePlayerTwo();
@@ -186,9 +186,6 @@ if (choiceTwo && mouseIsPressed){
   state = 3;
 
 }
-
-
-
 }
 
 function danielleFightBlock(){
