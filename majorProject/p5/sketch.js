@@ -1,6 +1,6 @@
 
 // Major Project
-// Eimear
+// Eimear Currie
 // 2018
 //
 // Extra for Experts:
@@ -18,8 +18,13 @@
 
 
 let newDanielle;
+<<<<<<< HEAD
 let soos;
 let backgroundImage;
+=======
+let newSecond;
+let backgroundImage, backgroundImageTwo, font, menuBackground, song1;
+>>>>>>> bfb0e3c564234513cf0b3b7021a852e1cb2ebb64
 let newDanielleHealth = 100;
 let soosHealth = 100;
 let state = 0;
@@ -53,6 +58,7 @@ function preload(){
   //newDanielle.addAnimation("block", "assets/danielle_1.png");
   newDanielle.setCollider("rectangle", 0, 0, 25, 25);
 
+<<<<<<< HEAD
   alien = createSprite(400, 800);
   alien.addAnimation("test", "assets/alien_1.png");
   alien.addAnimation("test", "assets/alien_2.png");
@@ -69,6 +75,13 @@ function preload(){
   sontaye.addAnimation("test", "assets/ghost_0.png");
   sontaye.addAnimation("fight", "assets/ghost_1.png");
   sontaye.setCollider("rectangle", 0, 0, 25, 25);
+=======
+  newSecond = createSprite(1600, 800);
+  newSecond.addAnimation("test", "assets/sprite_0.png");
+  newSecond.addAnimation("fight", "assets/sprite_1.png");
+  //  newSecond.addAnimation("block", "assets/second_0.png");
+  newSecond.setCollider("rectangle", 0, 0, 25, 25);
+>>>>>>> bfb0e3c564234513cf0b3b7021a852e1cb2ebb64
 
   menuDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png");
   menuSecond = loadAnimation("assets/sprite_0.png", "assets/sprite_1.png");
@@ -244,9 +257,6 @@ if (choiceTwo && mouseIsPressed){
   state = 3;
 
 }
-
-
-
 }
 
 function danielleFightBlock(){
