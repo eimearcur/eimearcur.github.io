@@ -10,8 +10,7 @@
 //sprites p5.play
 // create backgrounds
 
-//download at school
-// https://www.youtube.com/watch?v=WJRoRt155mA
+
 
 //https://www.youtube.com/watch?v=h5zbCBkCEiE     //must crop into multiple sound effects
 
@@ -24,8 +23,6 @@ let newDanielleHealth = 100;
 let soosHealth = 100;
 let state = 0;
 let hit = false;
-let timestamp = 0;
-
 let playButton;
 let danielle_dy = 5;
 let second_dy = 5;
@@ -39,7 +36,7 @@ function preload(){
 
   backgroundImageTwo = loadImage("assets/backgroundTwo.png");
 
-  //song1 = loadSound("assets/playingBackgroundSong.mp3");
+  song1 = loadSound("assets/backgroundSong (2).mp3");
 
   font = loadFont("assets/ARCADECLASSIC.TTF");
 
@@ -76,12 +73,14 @@ function setup() {
   objects = new Group();
 
 
+
 }
 
 function draw() {
   if (state === 1) {
     background(backgroundImage);
     gamePlay()
+
   }
   else if (state === 3){
     background(backgroundImageTwo);
@@ -145,19 +144,17 @@ choiceOne = collidePointRect(mouseX, mouseY, 100, 600, backgroundImage.width, ba
 
 if (choiceOne && mouseIsPressed){
   state = 1;
-
 }
-
 choiceTwo = collidePointRect(mouseX, mouseY, 1000, 600, backgroundImageTwo.width, backgroundImageTwo.height);
 
 if (choiceTwo && mouseIsPressed){
   state = 3;
-
 }
 }
 
 function gamePlay(){
-
+    getAudioContext().resume()
+      song1.loop();
       movePlayerTwo();
       movePlayerOne();
       danielleFightBlock();
