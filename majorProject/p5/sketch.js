@@ -18,23 +18,20 @@
 
 
 let newDanielle;
-<<<<<<< HEAD
-let soos;
-let backgroundImage;
-=======
 let newSecond;
 let backgroundImage, backgroundImageTwo, font, menuBackground, song1;
->>>>>>> bfb0e3c564234513cf0b3b7021a852e1cb2ebb64
 let newDanielleHealth = 100;
 let soosHealth = 100;
 let state = 0;
 let hit = false;
+let timestamp = 0;
+
 let playButton;
 let danielle_dy = 5;
 let second_dy = 5;
 
 
-let sontaye;
+
 
 function preload(){
 
@@ -55,33 +52,19 @@ function preload(){
   newDanielle = createSprite(400, 800);
   newDanielle.addAnimation("test","assets/danielleOne.png"); //stand
   newDanielle.addAnimation("fight", "assets/danielleTwo.png"); //fight
-  //newDanielle.addAnimation("block", "assets/danielle_1.png");
-  newDanielle.setCollider("rectangle", 0, 0, 25, 25);
+  newDanielle.addAnimation("death", "assets/danielleDeath.png")
+  newDanielle.setCollider("rectangle", 0, 0, 150, 150);
 
-<<<<<<< HEAD
-  alien = createSprite(400, 800);
-  alien.addAnimation("test", "assets/alien_1.png");
-  alien.addAnimation("test", "assets/alien_2.png");
-  alien.setCollider("rectangle", 0, 0, 25, 25);
+
 
 
   soos = createSprite(1600, 800);
   soos.addAnimation("test", "assets/sprite_0.png");
   soos.addAnimation("fight", "assets/sprite_1.png");
-//  soos.addAnimation("block", "assets/second_0.png");
-  soos.setCollider("rectangle", 0, 0, 25, 25);
+  soos.addAnimation("death", "assets/soosDies.png");
+  soos.setCollider("rectangle", 0, 0, 150, 150);
 
-  sontaye = createSprite(1600, 800);
-  sontaye.addAnimation("test", "assets/ghost_0.png");
-  sontaye.addAnimation("fight", "assets/ghost_1.png");
-  sontaye.setCollider("rectangle", 0, 0, 25, 25);
-=======
-  newSecond = createSprite(1600, 800);
-  newSecond.addAnimation("test", "assets/sprite_0.png");
-  newSecond.addAnimation("fight", "assets/sprite_1.png");
-  //  newSecond.addAnimation("block", "assets/second_0.png");
-  newSecond.setCollider("rectangle", 0, 0, 25, 25);
->>>>>>> bfb0e3c564234513cf0b3b7021a852e1cb2ebb64
+
 
   menuDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png");
   menuSecond = loadAnimation("assets/sprite_0.png", "assets/sprite_1.png");
@@ -98,64 +81,19 @@ function setup() {
 function draw() {
   if (state === 1) {
     background(backgroundImage);
-
-    //song1.loop();
-
-
-    movePlayerTwo();
-    movePlayerOne();
-    danielleFightBlock();
-    secondFightBlock();
-    danielleJump();
-    secondJump();
-
-    textSize(50);
-    fill(255, 0, 0);
-    textFont(font);
-    text(newDanielleHealth, 100, 100);
-    text(soosHealth, 1800, 100);
-
-    drawSprite(newDanielle);
-    drawSprite(soos);
-    objects.add(newDanielle);
-    objects.add(soos);
-    soos.bounce(newDanielle);
-    newDanielle.bounce(soos);
+    gamePlay()
   }
   else if (state === 3){
     background(backgroundImageTwo);
 
-    movePlayerTwo();
-    movePlayerOne();
-    danielleFightBlock();
-    secondFightBlock();
-    danielleJump();
-    secondJump();
-
-    textSize(50);
-    fill(255, 0, 0);
-    textFont(font);
-    text(newDanielleHealth, 100, 100);
-    text(soosHealth, 1800, 100);
-
-    drawSprite(newDanielle);
-    drawSprite(soos);
-    objects.add(newDanielle);
-    objects.add(soos);
-    soos.bounce(newDanielle);
-    newDanielle.bounce(soos);
+    gamePlay()
 
   }
   else if (state === 0) {
     background(menuBackground);
     menu();
   }
-  else if (state === 4){
-    pickPlayers()
-  }
-  // else if (state === 5){
-  //
-  // }
+
   else if (state === 2){
     decision();
   }
@@ -172,64 +110,23 @@ function menu(){
 
   //background song
 
-  // image
-
     animation(menuDanielle, 200, 800);
     animation(menuSecond, 1600, 800);
 
-
-  //chose character
-
-  //chose background
-
   // play button
-  image(playButton, 500, 100);
-  hit = collidePointRect(mouseX, mouseY, 500, 100, playButton.width, playButton.height);
+  image(playButton, 600, 100);
+  hit = collidePointRect(mouseX, mouseY, 600, 100, playButton.width, playButton.height);
+
+
 
   if (hit && mouseIsPressed){
 
-    state = 4;
+    state = 2;
 
 }
+
 }
 
-function pickPlayers(){
-  background(menuBackground);
-  textFont(font);
-  textSize(150);
-  fill(0, 0, 255);
-  text("CHOOSE  PLAYERS", 200, 300);
-
-  if (key === "h"){
-    state =2;
-  }
-
-  else if (key === "j"){
-    textSize(100);
-    fill(0,0,255)
-    text("no", width/2, height/2);
-  }
-}
-
-// function pickPlayerTwo(){
-//   background(menuBackground);
-//   textFont(font);
-//   textSize(150);
-//   fill(0, 0, 255);
-//   text("CHOOSE  PLAYER  2", 200, 300);
-//
-//   if (key === "c"){
-//     soos = soos;
-//     state = 1;
-//   }
-//   else if (key === "v"){
-//     soos = sontaye;
-//     state =1;
-//   }
-//
-//
-//
-// }
 
 function decision(){
   background(menuBackground);
@@ -257,6 +154,30 @@ if (choiceTwo && mouseIsPressed){
   state = 3;
 
 }
+}
+
+function gamePlay(){
+
+      movePlayerTwo();
+      movePlayerOne();
+      danielleFightBlock();
+      secondFightBlock();
+      danielleJump();
+      secondJump();
+      gameOver();
+
+      textSize(50);
+      fill(255, 0, 0);
+      textFont(font);
+      text(newDanielleHealth, 100, 100);
+      text(soosHealth, 1800, 100);
+
+      drawSprite(newDanielle);
+      drawSprite(soos);
+      objects.add(newDanielle);
+      objects.add(soos);
+      soos.bounce(newDanielle);
+      newDanielle.bounce(soos);
 }
 
 function danielleFightBlock(){
@@ -347,5 +268,58 @@ function keyPressed(){
     if (keyCode === UP_ARROW){
         second_dy -=9;
 }
+}
+}
+
+function danielleDies(){
+  newDanielleHealth = 0;
+
+  newDanielle.changeAnimation("death");
+
+
+  newDanielle.position.y += danielle_dy;
+  danielle_dy += 20;
+  if (newDanielle.position.y >= 800){
+    danielle_dy = 10;
+
+    //text
+    textFont(font);
+    textSize(150);
+    fill(255, 0, 0);
+    text("P2 WINS!", 600, 500);
+
+
+}
+}
+
+function soosDies(){
+  soosHealth = 0;
+
+  soos.changeAnimation("death");
+
+
+  soos.position.y += second_dy;
+  second_dy += 20;
+  if (soos.position.y >= 800){
+    second_dy = 10;
+
+    //text
+    textFont(font);
+    textSize(150);
+    fill(255, 0, 0);
+    text("P1 WINS!", 600, 500);
+
+
+}
+
+}
+
+function gameOver(){
+  if (newDanielleHealth <= 0 && soosHealth !== 0){
+    danielleDies();
+}
+
+  else if(soosHealth <= 0 && newDanielleHealth !== 0){
+  soosDies();
 }
 }
