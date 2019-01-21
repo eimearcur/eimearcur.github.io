@@ -39,3 +39,6 @@
 - Added speical player powers
 - Added refresh function
 - Added comments
+
+# Jan 21 2019
+- Added music and sound effects to project
