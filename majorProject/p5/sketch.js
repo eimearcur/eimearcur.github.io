@@ -2,27 +2,20 @@
 // Major Project
 // Eimear Currie
 // Jan 21 2019
-//
+// Mr. Schellenberg
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - Used a new library, used collision detection, used sound effects
 
-//music
-//sprites p5.play
-// create backgrounds
-
-
-
-//https://www.youtube.com/watch?v=h5zbCBkCEiE     //must crop into multiple sound effects
-
+//How to play:
+//P1 uses A and D keys to move, space to jump, E to fight and R to block.
+//P2 uses left and right arrow keys to move, up arrow to jump, M to fight and N to block
 //Player individual powers:
 //Player one: When p1 jumps on p2, p2 gets pushed into the ground and has to jump multiple times to get back up (offense)
 //Player two: p2 can jump extra high and almost fly (defense)
 
-
-
+//setting variables
 let newDanielle;
-let newSecond;
-let backgroundImage, backgroundImageTwo, font, menuBackground, song1;
+let backgroundImage, backgroundImageTwo, font, menuBackground, mainSong, hitSound, deathSound;
 let newDanielleHealth = 100;
 let soosHealth = 100;
 let state = 0;
@@ -32,28 +25,20 @@ let playButton;
 let danielle_dy = 5;
 let second_dy = 5;
 
-
-
-
-
-
 function preload(){
-
   backgroundImage = loadImage("assets/backgroundGameImage.png"); // first background image choice
-
   backgroundImageTwo = loadImage("assets/backgroundTwo.png");  // second background image choice
 
-
-  //song1 = loadSound("assets/backgroundSong (2).mp3");
+  mainSong = loadSound("assets/playingBackgroundSong.mp3");
+  hitSound = loadSound("assets/hit.mp3");
+  deathSound = loadSound("assets/death.mp3");
 
   font = loadFont("assets/ARCADECLASSIC.TTF");
 
   //menu background
-
   menuBackground = loadImage("assets/menubackground.jpg");
 
   playButton = loadImage("assets/play_0.png");
-
 
   //loads all information and animation for this sprite
   newDanielle = createSprite(400, 800);
@@ -62,8 +47,6 @@ function preload(){
   newDanielle.addAnimation("death", "assets/danielleDeath.png")
   newDanielle.setCollider("rectangle", 0, 0, 150, 150);
 
-
-
   //loads all information and animation for this sprite
   soos = createSprite(1600, 800);
   soos.addAnimation("test", "assets/sprite_0.png");
@@ -71,35 +54,31 @@ function preload(){
   soos.addAnimation("death", "assets/soosDies.png");
   soos.setCollider("rectangle", 0, 0, 150, 150);
 
-
   //loads menu animatins
   menuDanielle = loadAnimation("assets/danielleOne.png", "assets/danielleTwo.png");
   menuSecond = loadAnimation("assets/sprite_0.png", "assets/sprite_1.png");
-
 }
 
 function setup() {
   createCanvas(2000, 986);
+  mainSong.loop(); //Music should begin around after you to click the space or up arrow (such as to start when the actual "game" begins)
   objects = new Group(); //creates new group for sprites
+  // mainSong.loop();
 }
 
 function draw() {
   if (state === 1) {
     background(backgroundImage);  //if player chooses this background
     gamePlay()
-
   }
   else if (state === 3){
     background(backgroundImageTwo); //if player chooses this background
-
-    gamePlay()
-
+    gamePlay();
   }
   else if (state === 0) {
     background(menuBackground); //menu
     menu();
   }
-
   else if (state === 2){ //playr chooses a background
     decision();
   }
@@ -114,7 +93,6 @@ function menu(){ // menu function
   textSize(50);
   text("By Eimear Currie", width/2, 100);
 
-
   //menu animations playing
     animation(menuDanielle, 200, 800);
     animation(menuSecond, 1600, 800);
@@ -122,17 +100,10 @@ function menu(){ // menu function
   // play button
   image(playButton, 600, 100);
   hit = collidePointRect(mouseX, mouseY, 600, 100, playButton.width, playButton.height);
-
-
-
   if (hit && mouseIsPressed){
-
     state = 2;
-
 }
-
 }
-
 
 function decision(){ // function for picking a background
   background(menuBackground);
@@ -141,15 +112,14 @@ function decision(){ // function for picking a background
   fill(0, 0, 255);
   text("CHOOSE  YOUR  LOCATION", 200, 300);
 
-  image(backgroundImage, 100, 600);
+  image(backgroundImage, 100, 600); //load images onto screen
   image(backgroundImageTwo, 1000, 600, backgroundImageTwo.width/3, backgroundImageTwo.height/3);
-
 
 // click on one
 
 choiceOne = collidePointRect(mouseX, mouseY, 100, 600, backgroundImage.width, backgroundImage.height); // collides with image of choice
 
-if (choiceOne && mouseIsPressed){
+  if (choiceOne && mouseIsPressed){
   state = 1; //state becomes the background of choice
 }
 
@@ -161,8 +131,6 @@ if (choiceTwo && mouseIsPressed){
 }
 
 function gamePlay(){ //executes the game
-
-
     // functions execute
       movePlayerTwo();
       movePlayerOne();
@@ -171,7 +139,6 @@ function gamePlay(){ //executes the game
       danielleJump();
       secondJump();
       gameOver();
-
 
       // displays HP status's
       textSize(50);
@@ -190,11 +157,11 @@ function gamePlay(){ //executes the game
 }
 
 function danielleFightBlock(){ //player one fight and blocking function
-
     if (key === "e"){ //player 1 fight
       newDanielle.changeAnimation("fight");
       if (newDanielle.collide(soos)){
         soosHealth -= 1;
+        hitSound.play();
 }
     }
     else if (key === "r"){ //player 1 block
@@ -210,11 +177,11 @@ function danielleFightBlock(){ //player one fight and blocking function
   }
 
   function secondFightBlock(){ // p2 fight and blocking function
-
       if (key === "m"){ //p2 fight
         soos.changeAnimation("fight");
         if (soos.collide(newDanielle)){
           newDanielleHealth -= 1;
+          hitSound.play();
   }
       }
       else if (key === "n"){ //p2 block
@@ -228,7 +195,6 @@ function danielleFightBlock(){ //player one fight and blocking function
         soos.changeAnimation("test"); //original state
       }
     }
-
 
 function movePlayerTwo(){ // moves p2 back and forth
   if(keyIsDown(39)){ //right arrow key moves right
@@ -248,8 +214,7 @@ function movePlayerOne(){ //moves p1 back and forth
   }
 }
 
-// these 3 functions deal with jumping
-
+// these next 3 functions deal with jumping
 function danielleJump(){
   newDanielle.position.y += danielle_dy;
   danielle_dy += 0.15; //height of jump
@@ -266,25 +231,25 @@ function secondJump(){
   }
 }
 
-
 function keyPressed(){
-
   if (newDanielle.position.y >=800 ){
     if (keyCode === 32){
         danielle_dy -=9; //jumps
+        hitSound.play();
     }
   }
   if (soos.position.y >=800 ){
     if (keyCode === UP_ARROW){
         second_dy -=9; //jumps
+        hitSound.play();
 }
 }
 }
 
 function danielleDies(){ //function executes when p1 dies
   newDanielleHealth = 0;
-
   newDanielle.changeAnimation("death");
+  deathSound.play();
 
 // sprite falls of screen
   newDanielle.position.y += danielle_dy;
@@ -298,17 +263,15 @@ function danielleDies(){ //function executes when p1 dies
     fill(random(255), 0, 0); //so text will flicker
     text("P2 WINS!", 600, 500);
     textSize(50);
-    fill(255, 0, 0)
-    text("REFRESH TO PLAY AGAIN!", 600, 300)
-
-
+    fill(255, 0, 0);
+    text("REFRESH TO PLAY AGAIN!", 600, 300);
 }
 }
 
 function soosDies(){ //function executes when p2 dies
   soosHealth = 0;
-
   soos.changeAnimation("death");
+  deathSound.play();
 
 //p2 falls off screen
   soos.position.y += second_dy;
@@ -322,22 +285,17 @@ function soosDies(){ //function executes when p2 dies
     fill(random(255), 0, 0); //so text will flicker
     text("P1 WINS!", 600, 500);
     textSize(50);
-    fill(255, 0, 0)
-    text("REFRESH TO PLAY AGAIN!", 600, 300)
-
-
+    fill(255, 0, 0);
+    text("REFRESH TO PLAY AGAIN!", 600, 300);
 }
-
 }
 
 function gameOver(){ //ends the game
   if (newDanielleHealth <= 0 && soosHealth !== 0){ // if p1 has 0 HP
     danielleDies(); //calls death function
-
 }
 
   else if(soosHealth <= 0 && newDanielleHealth !== 0){ //if p2 has 0 HP
   soosDies(); //calls death function
-
 }
 }
