@@ -9,6 +9,7 @@
 //How to play:
 //P1 uses A and D keys to move, space to jump, E to fight and R to block.
 //P2 uses left and right arrow keys to move, up arrow to jump, M to fight and N to block
+// Note: In order to dock the opponants HP, you must be running towards them WHILE pressing the fight key. For example, P1 must be pressing D and E to dock P2 HP.
 //Player individual powers:
 //Player one: When p1 jumps on p2, p2 gets pushed into the ground and has to jump multiple times to get back up (offense)
 //Player two: p2 can jump extra high and almost fly (defense)
