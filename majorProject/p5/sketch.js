@@ -13,6 +13,10 @@
 //Player one: When p1 jumps on p2, p2 gets pushed into the ground and has to jump multiple times to get back up (offense)
 //Player two: p2 can jump extra high and almost fly (defense)
 
+//Reflection: I was unable to create a Play Again button due to the fact that the function I needed to make would not reset the gameplay() function, therefore the only way to reset that in the draw loop in the allotted time had was to refresh the entire page, so to solve this I added text that says "Refresh to play again"
+//            Another challange I faced was creating the death screen. Originally I wanted to have the character death scene shw and then the scene change to say who won, but I was unable to accomplish this because both would occur at the same time. To resolve this I modified the player death function to have them die while it says who won.
+//            Another challenge I had was uploading sprites nto my project using p5.play. Since I wanted to have the sprites change form, I tried uploading srite sheets using a JSON file. This did not work. I reslved this issue by adding the sprites as animations.
+
 //setting variables
 let newDanielle;
 let backgroundImage, backgroundImageTwo, font, menuBackground, mainSong, hitSound, deathSound;
@@ -20,7 +24,6 @@ let newDanielleHealth = 100;
 let soosHealth = 100;
 let state = 0;
 let hit = false;
-let refresh = false;
 let playButton;
 let danielle_dy = 5;
 let second_dy = 5;
